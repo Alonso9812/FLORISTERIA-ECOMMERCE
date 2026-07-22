@@ -1,0 +1,24 @@
+# Dependencias
+node_modules/
+dist/
+build/
+
+# Variables de entorno
+.env
+.env.local
+.env.*.local
+
+# Docker
+*.log
+
+# IDE
+.vscode/
+.idea/
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Uploads (solo en desarrollo local, en producción se maneja diferente)
+backend/uploads/*
+!backend/uploads/.gitkeep
