@@ -1,0 +1,97 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  name      String?
+  phone     String?
+  role      Role     @default(USER)
+  orders    Order[]
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("users")
+}
+
+model Category {
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  slug     String    @unique
+  image    String?
+  products Product[]
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("categories")
+}
+
+model Product {
+  id          Int         @id @default(autoincrement())
+  name        String
+  slug        String      @unique
+  description String?
+  price       Float
+  oldPrice    Float?      @map("old_price")
+  image       String
+  images      String?     // SQLite no soporta String[], usamos JSON string
+  stock       Int         @default(0)
+  featured    Boolean     @default(false)
+  categoryId  Int         @map("category_id")
+  category    Category    @relation(fields: [categoryId], references: [id])
+  orderItems  OrderItem[]
+  createdAt   DateTime    @default(now()) @map("created_at")
+
+  @@map("products")
+}
+
+model Order {
+  id             Int         @id @default(autoincrement())
+  userId         Int         @map("user_id")
+  user           User        @relation(fields: [userId], references: [id])
+  items          OrderItem[]
+  total          Float
+  status         OrderStatus @default(PENDING)
+  paymentId      String?     @map("payment_id")
+  deliveryDate   DateTime?   @map("delivery_date")
+  recipientName  String      @map("recipient_name")
+  recipientPhone String      @map("recipient_phone")
+  address        String
+  city           String
+  message        String?
+  createdAt      DateTime    @default(now()) @map("created_at")
+
+  @@map("orders")
+}
+
+model OrderItem {
+  id        Int     @id @default(autoincrement())
+  orderId   Int     @map("order_id")
+  order     Order   @relation(fields: [orderId], references: [id])
+  productId Int     @map("product_id")
+  product   Product @relation(fields: [productId], references: [id])
+  quantity  Int
+  price     Float
+
+  @@map("order_items")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
