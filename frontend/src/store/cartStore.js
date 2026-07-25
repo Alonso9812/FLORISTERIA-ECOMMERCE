@@ -41,11 +41,15 @@ export const useCartStore = create(
 
       clearCart: () => set({ items: [] }),
 
-      get total() {
-        return get().items.reduce((sum, i) => sum + (parseFloat(i.price) * i.quantity), 0);
+      // Getter para calcular el total
+      getTotal: () => {
+        return get().items.reduce((sum, item) => {
+          const price = parseFloat(item.price) || 0;
+          return sum + (price * item.quantity);
+        }, 0);
       },
 
-      get itemCount() {
+      getItemCount: () => {
         return get().items.reduce((sum, i) => sum + i.quantity, 0);
       }
     }),

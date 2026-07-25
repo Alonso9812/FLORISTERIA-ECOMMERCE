@@ -13,14 +13,14 @@ router.post('/create-payment-intent', async (req, res) => {
 
     const paymentIntent = await stripe.paymentIntents.create({
       amount: Math.round(amount * 100), // Stripe trabaja en centavos
-      currency: 'usd',
+      currency: 'usd', // o 'crc' para colones
       metadata: { orderId: String(orderId) },
       automatic_payment_methods: { enabled: true }
     });
 
     res.json({ clientSecret: paymentIntent.client_secret });
   } catch (error) {
-    console.error(error);
+    console.error('Stripe error:', error);
     res.status(500).json({ error: error.message });
   }
 });

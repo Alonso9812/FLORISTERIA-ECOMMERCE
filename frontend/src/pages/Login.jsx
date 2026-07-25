@@ -74,6 +74,16 @@ export default function Login() {
             </div>
           )}
 
+          <div className="flex justify-between items-center text-sm">
+            <label className="flex items-center gap-2 text-gray-600">
+              <input type="checkbox" className="rounded border-gray-300" />
+              Recordarme
+            </label>
+            <Link to="/olvide-contrasena" className="text-rose-600 hover:underline">
+              ¿Olvidaste tu contraseña?
+            </Link>
+          </div>
+
           <button 
             type="submit" 
             disabled={loading}

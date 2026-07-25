@@ -2,10 +2,21 @@ import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Minus, Plus, Trash2, ShoppingBag, ArrowRight } from 'lucide-react';
 import { useCartStore } from '../store/cartStore';
+import { useMemo } from 'react';
 
 export default function Cart() {
-  const { items, removeItem, updateQuantity, total, clearCart } = useCartStore();
+  const { items, removeItem, updateQuantity, clearCart } = useCartStore();
   const navigate = useNavigate();
+
+  // Calcular total reactivamente
+  const total = useMemo(() => {
+    return items.reduce((sum, item) => {
+      const price = parseFloat(item.price) || 0;
+      return sum + (price * item.quantity);
+    }, 0);
+  }, [items]);
+
+  const subtotal = total;
 
   if (items.length === 0) {
     return (
@@ -109,7 +120,7 @@ export default function Cart() {
               <div className="space-y-3 mb-6">
                 <div className="flex justify-between text-gray-600">
                   <span>Subtotal</span>
-                  <span>${total.toFixed(2)}</span>
+                  <span>${subtotal.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-gray-600">
                   <span>Envío</span>

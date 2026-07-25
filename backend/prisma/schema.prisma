@@ -8,17 +8,31 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  password  String
-  name      String?
-  phone     String?
-  role      Role     @default(USER)
-  orders    Order[]
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  id             Int      @id @default(autoincrement())
+  email          String   @unique
+  password       String
+  name           String?
+  phone          String?
+  role           Role     @default(USER)
+  orders         Order[]
+  resetTokens    PasswordResetToken[]
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
 
   @@map("users")
+}
+
+model PasswordResetToken {
+  id        Int      @id @default(autoincrement())
+  email     String
+  token     String   @unique
+  expiresAt DateTime @map("expires_at")
+  used      Boolean  @default(false)
+  createdAt DateTime @default(now()) @map("created_at")
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    Int?     @map("user_id")
+
+  @@map("password_reset_tokens")
 }
 
 model Category {
@@ -40,9 +54,10 @@ model Product {
   price       Float
   oldPrice    Float?      @map("old_price")
   image       String
-  images      String?     // SQLite no soporta String[], usamos JSON string
+  images      String?
   stock       Int         @default(0)
   featured    Boolean     @default(false)
+  eventType   String?     @map("event_type") // 15-años, bodas, cumpleaños, etc.
   categoryId  Int         @map("category_id")
   category    Category    @relation(fields: [categoryId], references: [id])
   orderItems  OrderItem[]
@@ -65,6 +80,7 @@ model Order {
   address        String
   city           String
   message        String?
+  eventType      String?     @map("event_type") // Tipo de evento del pedido
   createdAt      DateTime    @default(now()) @map("created_at")
 
   @@map("orders")

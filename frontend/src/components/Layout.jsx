@@ -1,7 +1,7 @@
 import { Outlet, Link, useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
 import { ShoppingCart, Menu, X, Flower2, User, LogOut } from 'lucide-react';
 import { useCartStore } from '../store/cartStore';
+import { useState, useEffect, useMemo } from 'react';
 
 export default function Layout() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -9,7 +9,9 @@ export default function Layout() {
   const navigate = useNavigate();
   const { items } = useCartStore();
 
-  const cartCount = items.reduce((sum, item) => sum + item.quantity, 0);
+  const cartCount = useMemo(() => {
+  return items.reduce((sum, item) => sum + item.quantity, 0);
+  }, [items]);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -46,6 +48,8 @@ export default function Layout() {
             <div className="hidden md:flex items-center gap-8">
               <Link to="/" className="text-gray-700 hover:text-rose-600 font-medium">Inicio</Link>
               <Link to="/catalogo" className="text-gray-700 hover:text-rose-600 font-medium">Catálogo</Link>
+              <Link to="/eventos" className="text-gray-700 hover:text-rose-600 font-medium">Eventos</Link>
+              <Link to="/quienes-somos" className="text-gray-700 hover:text-rose-600 font-medium">Quiénes Somos</Link>
             </div>
 
             {/* Right side */}
@@ -96,6 +100,7 @@ export default function Layout() {
               <Link to="/" onClick={() => setMenuOpen(false)} className="block py-2 text-gray-700">Inicio</Link>
               <Link to="/catalogo" onClick={() => setMenuOpen(false)} className="block py-2 text-gray-700">Catálogo</Link>
               <Link to="/carrito" onClick={() => setMenuOpen(false)} className="block py-2 text-gray-700">Carrito ({cartCount})</Link>
+              <Link to="/quienes-somos" onClick={() => setMenuOpen(false)} className="block py-2 text-gray-700">Quiénes Somos</Link>
               {user ? (
                 <>
                   <span className="block py-2 text-gray-600">Hola, {user.name}</span>
@@ -129,6 +134,7 @@ export default function Layout() {
             <ul className="space-y-2 text-gray-400 text-sm">
               <li><Link to="/" className="hover:text-white">Inicio</Link></li>
               <li><Link to="/catalogo" className="hover:text-white">Catálogo</Link></li>
+              <li><Link to="/quienes-somos" className="hover:text-white">Sobre Nosotros</Link></li>
               <li><Link to="/login" className="hover:text-white">Mi Cuenta</Link></li>
             </ul>
           </div>
