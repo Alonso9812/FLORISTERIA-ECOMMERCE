@@ -10,6 +10,7 @@ import productRoutes from './routes/products.js';
 import categoryRoutes from './routes/categories.js';
 import orderRoutes from './routes/orders.js';
 import paymentRoutes from './routes/payment.js';
+import statsRoutes from './routes/stats.js';
 
 // Cargar variables de entorno
 dotenv.config();
@@ -32,6 +33,7 @@ app.use('/api/products', productRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/payment', paymentRoutes);
+app.use('/api/stats', statsRoutes);
 
 // Ruta de salud (para verificar que el servidor está activo)
 app.get('/api/health', (req, res) => {

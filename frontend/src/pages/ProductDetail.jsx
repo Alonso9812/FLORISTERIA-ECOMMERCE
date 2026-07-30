@@ -121,38 +121,41 @@ export default function ProductDetail() {
               </div>
             </div>
 
-            {/* Quantity & Add to Cart */}
-            <div className="flex items-center gap-4 mb-8">
-              <div className="flex items-center border border-gray-200 rounded-xl">
+           {/* Quantity & Add to Cart */}
+              <div className="flex items-center gap-4 mb-8">
+                <div className="flex items-center border border-gray-200 rounded-xl">
+                  <button 
+                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                    className="p-3 hover:bg-gray-50 transition"
+                  >
+                    <Minus className="w-5 h-5" />
+                  </button>
+                  <span className="w-12 text-center font-semibold">{quantity}</span>
+                  <button 
+                    onClick={() => setQuantity(quantity + 1)}
+                    className="p-3 hover:bg-gray-50 transition"
+                  >
+                    <Plus className="w-5 h-5" />
+                  </button>
+                </div>
+                
                 <button 
-                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                  className="p-3 hover:bg-gray-50 transition"
+                  onClick={handleAddToCart}
+                  disabled={product.stock <= 0}
+                  className="flex-1 btn-primary flex items-center justify-center gap-2 py-4 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <Minus className="w-5 h-5" />
-                </button>
-                <span className="w-12 text-center font-semibold">{quantity}</span>
-                <button 
-                  onClick={() => setQuantity(quantity + 1)}
-                  className="p-3 hover:bg-gray-50 transition"
-                >
-                  <Plus className="w-5 h-5" />
+                  <ShoppingCart className="w-5 h-5" />
+                  {product.stock > 0 ? 'Agregar al Carrito' : 'Agotado'}
                 </button>
               </div>
-              
-              <button 
-                onClick={handleAddToCart}
-                className="flex-1 btn-primary flex items-center justify-center gap-2 py-4"
-              >
-                <ShoppingCart className="w-5 h-5" />
-                Agregar al Carrito
-              </button>
-            </div>
 
-            {/* Stock */}
-            <p className={`text-sm ${product.stock > 0 ? 'text-green-600' : 'text-red-600'}`}>
-              {product.stock > 0 ? `✓ En stock (${product.stock} disponibles)` : '✗ Agotado'}
-            </p>
-          </motion.div>
+              {/* Stock - fuera del div de botones */}
+              <p className={`text-sm mb-8 ${product.stock > 0 ? 'text-green-600' : 'text-red-600'}`}>
+                {product.stock > 0 
+                  ? `✓ En stock (${product.stock} disponibles)` 
+                  : '✗ Agotado'}
+              </p>
+              </motion.div>
         </div>
       </div>
     </div>

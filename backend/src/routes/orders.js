@@ -7,10 +7,29 @@ const router = express.Router();
 const prisma = new PrismaClient();
 
 // POST /api/orders - Crear orden
+// POST /api/orders - Crear orden
 router.post('/', auth, async (req, res) => {
   try {
     const { items, total, recipientName, recipientPhone, address, city, message, deliveryDate } = req.body;
 
+    // 1. Validar stock disponible
+    for (const item of items) {
+      const product = await prisma.product.findUnique({ 
+        where: { id: item.productId } 
+      });
+      
+      if (!product) {
+        return res.status(404).json({ error: `Producto no encontrado` });
+      }
+      
+      if (product.stock < item.quantity) {
+        return res.status(400).json({ 
+          error: `No hay suficiente stock de "${product.name}". Disponible: ${product.stock}, Solicitado: ${item.quantity}` 
+        });
+      }
+    }
+
+    // 2. Crear la orden
     const order = await prisma.order.create({
       data: {
         userId: req.user.userId,
@@ -30,12 +49,18 @@ router.post('/', auth, async (req, res) => {
         }
       },
       include: { 
-        items: { 
-          include: { product: true } 
-        },
+        items: { include: { product: true } },
         user: true
       }
     });
+
+    // 3. Restar stock
+    for (const item of items) {
+      await prisma.product.update({
+        where: { id: item.productId },
+        data: { stock: { decrement: item.quantity } }
+      });
+    }
 
     // Enviar email de confirmación al cliente
     try {
