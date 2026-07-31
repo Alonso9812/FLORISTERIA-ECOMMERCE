@@ -19,6 +19,8 @@ import AdminDashboard from './pages/admin/Dashboard';
 import AdminProducts from './pages/admin/Products';
 import AdminOrders from './pages/admin/Orders';
 import AdminProductForm from './pages/admin/ProductForm';
+import AdminUsers from './pages/admin/Users';
+import AdminUserForm from './pages/admin/UserForm';
 
 function App() {
   return (
@@ -64,6 +66,21 @@ function App() {
         <Route path="/admin/ordenes" element={
           <ProtectedRoute requireAdmin={true}>
             <AdminOrders />
+          </ProtectedRoute>
+        } />
+        <Route path="/admin/usuarios" element={
+          <ProtectedRoute requireAdmin={true}>
+            <AdminUsers />
+          </ProtectedRoute>
+        } />
+        <Route path="/admin/usuarios/nuevo" element={
+          <ProtectedRoute requireAdmin={true}>
+            <AdminUserForm />
+          </ProtectedRoute>
+        } />
+        <Route path="/admin/usuarios/editar/:id" element={
+          <ProtectedRoute requireAdmin={true}>
+            <AdminUserForm />
           </ProtectedRoute>
         } />
       </Routes>

@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   Package, ShoppingBag, Users, TrendingUp, 
-  DollarSign, Calendar, ArrowUpRight, Flower2 
+  DollarSign, Calendar, ArrowUpRight, Flower2, UserCog 
 } from 'lucide-react';
 import { 
   Chart as ChartJS, 
   CategoryScale, LinearScale, BarElement, 
   ArcElement, PointElement, LineElement, Title, Tooltip, Legend 
 } from 'chart.js';
-import { Bar, Doughnut, Line } from 'react-chartjs-2';
+import { Bar, Doughnut } from 'react-chartjs-2';
 import axios from 'axios';
 
 ChartJS.register(
@@ -50,7 +50,6 @@ export default function AdminDashboard() {
     );
   }
 
-  // Datos para gráfica de ventas últimos 7 días
   const salesChartData = {
     labels: stats?.last7Days.map(d => d.date) || [],
     datasets: [{
@@ -63,7 +62,6 @@ export default function AdminDashboard() {
     }]
   };
 
-  // Datos para gráfica de órdenes por estado
   const statusColors = {
     PENDING: '#fbbf24',
     PAID: '#22c55e',
@@ -168,7 +166,6 @@ export default function AdminDashboard() {
 
         {/* Gráficas */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-          {/* Ventas últimos 7 días */}
           <div className="bg-white rounded-2xl p-6 shadow-sm">
             <h3 className="font-bold text-gray-800 mb-4">Ventas Últimos 7 Días</h3>
             <Bar 
@@ -183,7 +180,6 @@ export default function AdminDashboard() {
             />
           </div>
 
-          {/* Órdenes por estado */}
           <div className="bg-white rounded-2xl p-6 shadow-sm">
             <h3 className="font-bold text-gray-800 mb-4">Órdenes por Estado</h3>
             <div className="w-64 mx-auto">
@@ -224,7 +220,7 @@ export default function AdminDashboard() {
         {/* Acciones rápidas */}
         <div className="bg-white rounded-2xl shadow-sm p-6">
           <h2 className="text-lg font-bold text-gray-800 mb-4">Acciones Rápidas</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <Link to="/admin/productos/nuevo" className="flex items-center gap-4 p-4 bg-rose-50 rounded-xl hover:bg-rose-100 transition">
               <div className="bg-rose-600 text-white p-3 rounded-xl">
                 <Package className="w-6 h-6" />
@@ -250,6 +246,15 @@ export default function AdminDashboard() {
               <div>
                 <p className="font-semibold text-gray-800">Ver Órdenes</p>
                 <p className="text-sm text-gray-500">Gestionar pedidos</p>
+              </div>
+            </Link>
+            <Link to="/admin/usuarios" className="flex items-center gap-4 p-4 bg-purple-50 rounded-xl hover:bg-purple-100 transition">
+              <div className="bg-purple-600 text-white p-3 rounded-xl">
+                <UserCog className="w-6 h-6" />
+              </div>
+              <div>
+                <p className="font-semibold text-gray-800">Usuarios</p>
+                <p className="text-sm text-gray-500">Gestionar usuarios</p>
               </div>
             </Link>
           </div>
