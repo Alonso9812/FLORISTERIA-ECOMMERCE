@@ -23,6 +23,7 @@ export default function AdminProductForm() {
     oldPrice: '',
     stock: '',
     categoryId: '',
+    eventType: '',
     featured: false,
     image: null,
   });
@@ -56,6 +57,7 @@ export default function AdminProductForm() {
           oldPrice: product.oldPrice || '',
           stock: product.stock,
           categoryId: product.categoryId,
+          eventType: product.eventType || '',
           featured: product.featured,
           image: null,
         });
@@ -109,6 +111,7 @@ export default function AdminProductForm() {
       data.append('price', form.price);
       data.append('stock', form.stock);
       data.append('categoryId', form.categoryId);
+      data.append('eventType', form.eventType || '');
       data.append('featured', form.featured);
       if (form.oldPrice) data.append('oldPrice', form.oldPrice);
       if (form.image) data.append('image', form.image);
@@ -214,6 +217,27 @@ export default function AdminProductForm() {
                   <option key={cat.id} value={cat.id}>{cat.name}</option>
                 ))}
               </select>
+            </div>
+
+            {/* Tipo de Evento */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Tipo de Evento (opcional)</label>
+              <select
+                name="eventType"
+                value={form.eventType}
+                onChange={handleChange}
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-rose-400 focus:ring-2 focus:ring-rose-100 outline-none bg-white"
+              >
+                <option value="">Sin evento específico</option>
+                <option value="15-anos">15 Años</option>
+                <option value="bodas">Bodas</option>
+                <option value="cumpleanos">Cumpleaños</option>
+                <option value="graduacion">Graduación</option>
+                <option value="san-valentin">San Valentín</option>
+                <option value="dia-madre">Día de la Madre</option>
+                <option value="condolencias">Condolencias</option>
+              </select>
+              <p className="text-xs text-gray-400 mt-1">Si seleccionas un evento, el producto aparecerá en esa sección</p>
             </div>
 
             {/* Precio */}

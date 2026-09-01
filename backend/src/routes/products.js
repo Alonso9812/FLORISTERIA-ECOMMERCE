@@ -35,7 +35,7 @@ const upload = multer({
 // GET /api/products - Listar todos los productos
 router.get('/', async (req, res) => {
   try {
-    const { category, search, featured, limit = 20, page = 1 } = req.query;
+    const { category, search, featured, limit = 20, page = 1, eventType } = req.query;
     
     const where = {};
     
@@ -45,6 +45,10 @@ router.get('/', async (req, res) => {
     
     if (featured === 'true') {
       where.featured = true;
+    }
+
+    if (eventType) {
+      where.eventType = eventType;
     }
     
     if (search) {
@@ -104,7 +108,7 @@ router.get('/:slug', async (req, res) => {
 // POST /api/products - Crear producto (solo admin)
 router.post('/', auth, adminOnly, upload.single('image'), async (req, res) => {
   try {
-    const { name, slug, description, price, oldPrice, stock, featured, categoryId } = req.body;
+    const { name, slug, description, price, oldPrice, stock, featured, categoryId, eventType } = req.body;
     
     const product = await prisma.product.create({
       data: {
@@ -116,6 +120,7 @@ router.post('/', auth, adminOnly, upload.single('image'), async (req, res) => {
         image: req.file ? `/uploads/${req.file.filename}` : null,
         stock: parseInt(stock) || 0,
         featured: featured === 'true',
+        eventType: eventType || null,
         categoryId: parseInt(categoryId)
       }
     });
@@ -130,7 +135,7 @@ router.post('/', auth, adminOnly, upload.single('image'), async (req, res) => {
 // PUT /api/products/:id - Actualizar producto (solo admin)
 router.put('/:id', auth, adminOnly, upload.single('image'), async (req, res) => {
   try {
-    const { name, description, price, oldPrice, stock, featured, categoryId } = req.body;
+    const { name, description, price, oldPrice, stock, featured, categoryId, eventType } = req.body;
     
     const updateData = {
       name,
@@ -139,6 +144,7 @@ router.put('/:id', auth, adminOnly, upload.single('image'), async (req, res) => 
       oldPrice: oldPrice ? parseFloat(oldPrice) : null,
       stock: parseInt(stock),
       featured: featured === 'true',
+      eventType: eventType || null,
       categoryId: parseInt(categoryId)
     };
 

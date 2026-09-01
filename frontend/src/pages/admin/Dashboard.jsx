@@ -129,10 +129,14 @@ export default function AdminDashboard() {
       <div className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Flower2 className="w-8 h-8 text-rose-600" />
+            <img 
+                src="/logo-maka.png" 
+                alt="MAKA Gift Shop" 
+                className="w-10 h-10 object-contain rounded-full"
+              />
             <div>
-              <h1 className="text-xl font-bold text-gray-800">Panel de Administración</h1>
-              <p className="text-sm text-gray-500">Resumen de tu floristería</p>
+              <h1 className="text-xl font-bold text-dark">Panel de Administración</h1>
+              <p className="text-sm text-gray-500">MAKA Gift Shop</p>
             </div>
           </div>
           <Link to="/" className="text-rose-600 hover:text-rose-700 font-medium">

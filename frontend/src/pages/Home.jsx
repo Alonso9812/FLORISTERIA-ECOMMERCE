@@ -31,23 +31,34 @@ export default function Home() {
 
   return (
     <div>
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-rose-50 via-pink-50 to-rose-100 py-20 md:py-32">
-        <div className="max-w-7xl mx-auto px-4 text-center">
+     {/* Hero Section */}
+      <section 
+        className="relative py-20 md:py-32 overflow-hidden"
+        style={{
+          backgroundImage: 'url(/hero-bg.jpg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+        }}
+      >
+        {/* Overlay oscuro + degradado rosa para legibilidad */}
+        <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/40 to-rose-900/50"></div>
+
+        <div className="relative max-w-7xl mx-auto px-4 text-center z-10">
           <motion.h1 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-4xl md:text-6xl font-bold text-rose-900 mb-6"
+            className="text-4xl md:text-6xl font-bold text-white mb-6 drop-shadow-lg"
           >
             Flores Frescas,<br />
-            <span className="text-rose-600">Momentos Únicos</span>
+            <span className="text-rose-400">Momentos Únicos</span>
           </motion.h1>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-lg md:text-xl text-gray-600 mb-8 max-w-2xl mx-auto"
+            className="text-lg md:text-xl text-rose-100/90 mb-8 max-w-2xl mx-auto drop-shadow"
           >
             Arreglos florales hechos a mano con flores del día. 
             Envío a domicilio en menos de 24 horas.
@@ -57,7 +68,7 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            <Link to="/catalogo" className="btn-primary inline-flex items-center gap-2 text-lg">
+            <Link to="/catalogo" className="inline-flex items-center gap-2 bg-rose-600 hover:bg-rose-700 text-white px-8 py-4 rounded-full font-semibold text-lg transition shadow-lg hover:shadow-xl">
               Ver Catálogo <ArrowRight className="w-5 h-5" />
             </Link>
           </motion.div>

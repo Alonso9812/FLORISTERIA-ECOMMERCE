@@ -39,9 +39,17 @@ export default function Layout() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
-            <Link to="/" className="flex items-center gap-2">
-              <Flower2 className="w-8 h-8 text-rose-600" />
-              <span className="text-xl font-bold text-rose-800">Floristería</span>
+           {/* Dentro del header/navbar, donde está el logo/título de la tienda */}
+            <Link to="/" className="flex items-center gap-3">
+              <img 
+                src="/logo-maka.png" 
+                alt="MAKA Gift Shop" 
+                className="h-14 w-14 object-contain rounded-full"
+              />
+              <div className="hidden sm:block">
+                <h1 className="text-xl font-bold text-dark tracking-wide">MAKA</h1>
+                <p className="text-[10px] text-gray-500 uppercase tracking-[0.2em] -mt-1">Gift Shop</p>
+              </div>
             </Link>
 
             {/* Desktop Menu */}

@@ -8,16 +8,20 @@ export default {
     extend: {
       colors: {
         rose: {
-          50: '#fff1f2',
-          100: '#ffe4e6',
-          200: '#fecdd3',
-          300: '#fda4af',
-          400: '#fb7185',
-          500: '#f43f5e',
-          600: '#e11d48',
-          700: '#be123c',
-          800: '#9f1239',
-          900: '#881337',
+          50: '#FDF2F8',
+          100: '#FCE7F3',
+          200: '#FBCFE8',
+          300: '#F9A8D4',
+          400: '#F472B6',
+          500: '#EC4899',
+          600: '#E91E8C',   // ← Rosa principal del logo MAKA
+          700: '#C21878',   // ← Hover
+          800: '#9D174D',
+          900: '#831843',
+        },
+        dark: {
+          DEFAULT: '#1F1F1F',  // ← Negro del texto "MAKA"
+          light: '#4A4A4A',
         }
       }
     },
