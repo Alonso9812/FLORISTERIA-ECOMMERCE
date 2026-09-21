@@ -35,7 +35,7 @@ export default function Home() {
       <section 
         className="relative py-20 md:py-32 overflow-hidden"
         style={{
-          backgroundImage: 'url(/hero-bg.jpg)',
+          backgroundImage: 'url(/fondo.jpg)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
