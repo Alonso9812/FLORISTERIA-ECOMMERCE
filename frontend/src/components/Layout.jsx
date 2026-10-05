@@ -40,11 +40,11 @@ export default function Layout() {
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
            {/* Dentro del header/navbar, donde está el logo/título de la tienda */}
-            <Link to="/" className="flex items-center gap-3">
-              <img 
-                src="/logo-maka.png" 
-                alt="MAKA Gift Shop" 
-                className="h-14 w-14 object-contain rounded-full"
+            <Link to="/" className="flex items-center gap-3 h-full">
+              <img
+                src="/Logo.jpeg"
+                alt="MAKA Gift Shop"
+                className="h-16 w-16 object-contain"
               />
               <div className="hidden sm:block">
                 <h1 className="text-xl font-bold text-dark tracking-wide">MAKA</h1>

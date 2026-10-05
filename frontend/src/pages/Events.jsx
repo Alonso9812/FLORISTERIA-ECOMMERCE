@@ -13,6 +13,7 @@ const eventInfo = {
     subtitle: 'Haz de su día especial un momento inolvidable',
     icon: Crown,
     color: 'from-pink-100 to-rose-100',
+    image: '/eventos/15-anos.jpg',
     description: 'Arreglos florales elegantes para quinceañeras. Desde centros de mesa hasta el ramo perfecto para la entrada.',
   },
   'bodas': {
@@ -20,6 +21,7 @@ const eventInfo = {
     subtitle: 'Flores que hacen de tu día un cuento de hadas',
     icon: Heart,
     color: 'from-rose-100 to-pink-100',
+    image: '/eventos/Bodas.jpg',
     description: 'Ramos de novia, centros de mesa, decoración de iglesia y todo lo que necesitas para tu boda soñada.',
   },
   'cumpleanos': {
@@ -27,6 +29,7 @@ const eventInfo = {
     subtitle: 'Celebra con color y alegría',
     icon: Gift,
     color: 'from-yellow-100 to-orange-100',
+    image: '/eventos/Cumpleaños.jpg',
     description: 'Sorprende con arreglos vibrantes, cajas sorpresa y combos especiales para cumpleañeros.',
   },
   'graduacion': {
@@ -34,6 +37,7 @@ const eventInfo = {
     subtitle: 'Celebra su logro con flores',
     icon: GraduationCap,
     color: 'from-blue-100 to-indigo-100',
+    image: '/eventos/Graduacion.jpg',
     description: 'Ramos conmemorativos y arreglos para celebrar este importante logro académico.',
   },
   'san-valentin': {
@@ -41,6 +45,7 @@ const eventInfo = {
     subtitle: 'Dile te quiero con flores',
     icon: Heart,
     color: 'from-red-100 to-rose-100',
+    image: '/eventos/San-Valentin.jpg',
     description: 'Rosas rojas, cajas en forma de corazón y combos románticos para el día del amor.',
   },
   'dia-madre': {
@@ -48,6 +53,7 @@ const eventInfo = {
     subtitle: 'Agradece su amor con flores',
     icon: Baby,
     color: 'from-purple-100 to-pink-100',
+    image: '/eventos/Dia-de-la-Madre.jpg',
     description: 'Arreglos especiales para mamá. Rosas rosadas, orquídeas y detalles que dicen gracias.',
   },
   'condolencias': {
@@ -55,6 +61,7 @@ const eventInfo = {
     subtitle: 'Acompaña en el dolor con respeto',
     icon: Church,
     color: 'from-gray-100 to-slate-200',
+    image: '/eventos/Condolencias.jpg',
     description: 'Arreglos blancos, coronas fúnebres y piezas de respeto para momentos difíciles.',
   },
 };
@@ -133,20 +140,36 @@ export default function Events() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Hero del evento */}
-      <div className={`bg-gradient-to-br ${info.color} py-16`}>
-        <div className="max-w-6xl mx-auto px-4">
-          <Link to="/eventos" className="flex items-center gap-2 text-gray-600 hover:text-gray-800 mb-6">
-            <ArrowLeft className="w-5 h-5" /> Todos los eventos
-          </Link>
-          <div className="flex items-center gap-4 mb-4">
-            <IconComponent className="w-10 h-10 text-gray-700" />
-            <h1 className="text-4xl font-bold text-gray-800">{info.title}</h1>
+       {/* Hero del evento */}
+        <div className="relative py-20 overflow-hidden">
+          {/* Fondo de respaldo con el color del evento */}
+          <div className={`absolute inset-0 bg-gradient-to-br ${info.color}`} />
+
+          {/* Imagen de fondo */}
+          {info.image && (
+            <img
+              src={info.image}
+              alt=""
+              className="absolute inset-0 w-full h-full object-cover"
+              onError={(e) => { e.currentTarget.style.display = 'none'; }}
+            />
+          )}
+
+          {/* Capa oscura para que el texto se lea */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
+
+          <div className="relative max-w-6xl mx-auto px-4">
+            <Link to="/eventos" className="flex items-center gap-2 text-white/80 hover:text-white mb-6">
+              <ArrowLeft className="w-5 h-5" /> Todos los eventos
+            </Link>
+            <div className="flex items-center gap-4 mb-4">
+              <IconComponent className="w-10 h-10 text-white" />
+              <h1 className="text-4xl md:text-5xl font-bold text-white drop-shadow-lg">{info.title}</h1>
+            </div>
+            <p className="text-xl text-white/90 mb-4 drop-shadow">{info.subtitle}</p>
+            <p className="text-white/80 max-w-2xl">{info.description}</p>
           </div>
-          <p className="text-xl text-gray-600 mb-4">{info.subtitle}</p>
-          <p className="text-gray-500 max-w-2xl">{info.description}</p>
         </div>
-      </div>
 
       {/* Productos del evento */}
       <div className="max-w-6xl mx-auto px-4 py-12">

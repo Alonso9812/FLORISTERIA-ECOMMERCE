@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Flower2, Heart, Truck, Clock, Award, MapPin, Phone, Mail, Globe } from 'lucide-react';
-
+import { Sparkles, Heart, Truck, Clock, Award, MapPin, Phone, Mail } from 'lucide-react';
+import { FaInstagram, FaFacebookF, FaWhatsapp } from 'react-icons/fa';
 
 export default function About() {
   const valores = [
@@ -50,19 +50,31 @@ export default function About() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Hero */}
-      <section className="relative bg-gradient-to-br from-rose-100 via-pink-50 to-rose-200 py-20 md:py-28">
-        <div className="max-w-4xl mx-auto px-4 text-center">
+     {/* Hero */}
+      <section className="relative py-24 md:py-36 overflow-hidden">
+        {/* Imagen de fondo */}
+        <img
+          src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=1600"
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        {/* Capa oscura con tono rosado para que el texto se lea bien */}
+        <div className="absolute inset-0 bg-gradient-to-b from-rose-950/70 via-rose-900/50 to-rose-950/70" />
+
+        <div className="relative max-w-4xl mx-auto px-4 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <Flower2 className="w-16 h-16 text-rose-600 mx-auto mb-6" />
-            <h1 className="text-4xl md:text-5xl font-bold text-rose-900 mb-6">
+            <span className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm border border-white/30 text-white text-sm font-medium px-4 py-2 rounded-full mb-6">
+              <Sparkles className="w-4 h-4 text-rose-200" />
+              Desde 2023
+            </span>
+            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 drop-shadow-lg">
               Quiénes Somos
             </h1>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-              Más que una floristería, somos creadores de momentos. Desde 2011 llevamos alegría, amor y belleza a cada rincón a través de nuestras flores.
+            <p className="text-xl text-rose-50 max-w-2xl mx-auto leading-relaxed drop-shadow">
+              Más que una floristería, somos creadores de momentos. Desde 2023 llevamos alegría, amor y belleza a cada rincón a través de nuestras flores.
             </p>
           </motion.div>
         </div>
@@ -237,11 +249,32 @@ export default function About() {
                 </div>
               </div>
               <div className="flex gap-4 mt-6">
-                <a href="#" className="bg-rose-100 text-rose-700 p-3 rounded-full hover:bg-rose-200 transition">
-                
+                <a
+                  href="https://instagram.com/TU_USUARIO"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Instagram"
+                  className="bg-rose-100 text-rose-700 p-3 rounded-full hover:bg-rose-200 transition"
+                >
+                  <FaInstagram className="w-5 h-5" />
                 </a>
-                <a href="#" className="bg-rose-100 text-rose-700 p-3 rounded-full hover:bg-rose-200 transition">
-                  
+                <a
+                  href="https://facebook.com/TU_PAGINA"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Facebook"
+                  className="bg-rose-100 text-rose-700 p-3 rounded-full hover:bg-rose-200 transition"
+                >
+                  <FaFacebookF className="w-5 h-5" />
+                </a>
+                <a
+                  href="https://wa.me/50670330337"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="WhatsApp"
+                  className="bg-rose-100 text-rose-700 p-3 rounded-full hover:bg-rose-200 transition"
+                >
+                  <FaWhatsapp className="w-5 h-5" />
                 </a>
               </div>
             </div>
