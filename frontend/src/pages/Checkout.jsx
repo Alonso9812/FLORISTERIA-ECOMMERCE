@@ -1,10 +1,10 @@
 import { useState, useEffect, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useStripe, useElements, PaymentElement, Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import { useCartStore } from '../store/cartStore';
 import axios from 'axios';
-import { Truck, MapPin, CheckCircle, CreditCard, Lock, ArrowLeft } from 'lucide-react';
+import { Truck, MapPin, CheckCircle, CreditCard, Lock, ArrowLeft, UserPlus } from 'lucide-react';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
@@ -89,6 +89,7 @@ export default function Checkout() {
   const [error, setError] = useState('');
   const [clientSecret, setClientSecret] = useState('');
   const [step, setStep] = useState(1);
+  const [needsAuth, setNeedsAuth] = useState(false);
   
   const [formData, setFormData] = useState({
     recipientName: '',
@@ -104,48 +105,62 @@ export default function Checkout() {
   };
 
   const handleContinue = async (e) => {
-    e.preventDefault();
-    
-    if (!formData.recipientName || !formData.address || !formData.city) {
-      setError('Por favor completa todos los campos obligatorios');
-      return;
-    }
+  e.preventDefault();
 
-    setLoading(true);
+  if (!formData.recipientName || !formData.address || !formData.city) {
+    setError('Por favor completa todos los campos obligatorios');
+    return;
+  }
+
+  const token = localStorage.getItem('token');
+
+  // Si no hay sesión, no llamamos al backend: mostramos el aviso de registro
+  if (!token) {
     setError('');
+    setNeedsAuth(true);
+    return;
+  }
 
-    try {
-      const token = localStorage.getItem('token');
-      
-      // 1. Crear la orden en el backend
-      const orderRes = await axios.post(`${API_URL}/orders`, {
-        items: items.map(i => ({ 
-          productId: i.id, 
-          quantity: i.quantity, 
-          price: i.price 
-        })),
-        total,
-        ...formData
-      }, {
-        headers: token ? { Authorization: `Bearer ${token}` } : {}
-      });
+  setLoading(true);
+  setError('');
+  setNeedsAuth(false);
 
-      const orderId = orderRes.data.id;
+  try {
+    // 1. Crear la orden en el backend
+    const orderRes = await axios.post(`${API_URL}/orders`, {
+      items: items.map(i => ({
+        productId: i.id,
+        quantity: i.quantity,
+        price: i.price
+      })),
+      total,
+      ...formData
+    }, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
 
-      // 2. Crear PaymentIntent con el orderId real
-      const paymentRes = await axios.post(`${API_URL}/payment/create-payment-intent`, {
-        amount: total,
-        orderId
-      });
+    const orderId = orderRes.data.id;
 
-      setClientSecret(paymentRes.data.clientSecret);
-      setStep(2);
-    } catch (err) {
+    // 2. Crear PaymentIntent con el orderId real
+    const paymentRes = await axios.post(`${API_URL}/payment/create-payment-intent`, {
+      amount: total,
+      orderId
+    });
+
+    setClientSecret(paymentRes.data.clientSecret);
+    setStep(2);
+  } catch (err) {
+    // 401 = sin sesión o sesión vencida
+    if (err.response?.status === 401) {
+      localStorage.removeItem('token');
+      setNeedsAuth(true);
+    } else {
       setError(err.response?.data?.error || 'Error al preparar el pago');
-    } finally {
-      setLoading(false);
     }
-  };
+  } finally {
+    setLoading(false);
+  }
+};
 
   const handleSuccess = () => {
     clearCart();
@@ -220,6 +235,32 @@ export default function Checkout() {
               <h2 className="font-bold text-lg">Datos de Entrega</h2>
             </div>
 
+            {needsAuth && (
+              <div className="bg-rose-50 border border-rose-200 p-5 rounded-xl text-center">
+                <p className="text-rose-800 font-medium mb-1">
+                  Para continuar con la compra primero debes registrarte
+                </p>
+                <p className="text-rose-700/80 text-sm mb-4">
+                  Es rápido y así podrás dar seguimiento a tu pedido. Tu carrito se guardará.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                  <Link
+                    to="/login"
+                    className="inline-flex items-center justify-center gap-2 bg-rose-600 text-white px-6 py-2.5 rounded-full font-semibold hover:bg-rose-700 transition"
+                  >
+                    <UserPlus className="w-4 h-4" />
+                    Registrarme
+                  </Link>
+                  <Link
+                    to="/login"
+                    className="inline-flex items-center justify-center border border-rose-300 text-rose-700 px-6 py-2.5 rounded-full font-semibold hover:bg-rose-100 transition"
+                  >
+                    Ya tengo cuenta
+                  </Link>
+                </div>
+              </div>
+            )}
+
             {error && (
               <div className="bg-red-50 text-red-600 p-4 rounded-xl text-center">
                 {error}
@@ -251,7 +292,7 @@ export default function Checkout() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Dirección de entrega *</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Dirección de entrega o indicar si recoges en tienda  *</label>
               <input
                 type="text"
                 name="address"

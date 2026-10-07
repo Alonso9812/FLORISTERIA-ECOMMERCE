@@ -148,8 +148,8 @@ export default function Layout() {
           </div>
           <div>
             <h4 className="font-semibold mb-4">Contacto</h4>
-            <p className="text-gray-400 text-sm">WhatsApp: +506 0000-0000</p>
-            <p className="text-gray-400 text-sm">Email: hola@floristeria.com</p>
+            <p className="text-gray-400 text-sm">WhatsApp: +506 8858-1948</p>
+            <p className="text-gray-400 text-sm">Email: maka2731giftshop@gmail.com</p>
           </div>
         </div>
         <div className="max-w-7xl mx-auto px-4 mt-8 pt-8 border-t border-gray-800 text-center text-gray-500 text-sm">

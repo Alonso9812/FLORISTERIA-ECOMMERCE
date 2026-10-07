@@ -80,7 +80,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { icon: Truck, title: 'Entrega Rápida', desc: 'Mismo día en tu zona' },
+              { icon: Truck, title: 'Entrega Rápida', desc: 'Preguntar por disponibilidad' },
               { icon: Heart, title: 'Hecho a Mano', desc: 'Cada arreglo es único' },
               { icon: Clock, title: '24/7', desc: 'Pedidos online siempre' },
               { icon: Flower, title: 'Frescura Garantizada', desc: 'Flores seleccionadas diariamente' }

@@ -229,22 +229,22 @@ export default function About() {
                   <Phone className="w-6 h-6 text-rose-600 mt-1" />
                   <div>
                     <p className="font-medium text-gray-800">Teléfono / WhatsApp</p>
-                    <p className="text-gray-500">+506 7033-0337</p>
+                    <p className="text-gray-500">+506 8858-1948</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
                   <Mail className="w-6 h-6 text-rose-600 mt-1" />
                   <div>
                     <p className="font-medium text-gray-800">Email</p>
-                    <p className="text-gray-500">hola@floristeria.com</p>
+                    <p className="text-gray-500">maka2731giftshop@gmail.com</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
                   <Clock className="w-6 h-6 text-rose-600 mt-1" />
                   <div>
                     <p className="font-medium text-gray-800">Horario</p>
-                    <p className="text-gray-500">Lunes a Sábado: 8:00 a.m. - 6:00 p.m.</p>
-                    <p className="text-gray-500">Domingo: 9:00 a.m. - 2:00 p.m.</p>
+                    <p className="text-gray-500">Lunes a Viernes: 9:30 a.m. - 6:00 p.m.</p>
+                    <p className="text-gray-500">Sabados: 9:30 a.m. - 4:00 p.m.</p>
                   </div>
                 </div>
               </div>
@@ -268,7 +268,7 @@ export default function About() {
                   <FaFacebookF className="w-5 h-5" />
                 </a>
                 <a
-                  href="https://wa.me/50670330337"
+                  href="https://wa.me/50688581948"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="WhatsApp"
@@ -301,7 +301,7 @@ export default function About() {
               Ver Catálogo
             </Link>
             <a 
-              href="https://wa.me/50670330337" 
+              href="https://wa.me/50688581948" 
               target="_blank" 
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white/10 transition"

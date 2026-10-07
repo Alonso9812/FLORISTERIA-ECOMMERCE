@@ -13,7 +13,7 @@ const eventInfo = {
     subtitle: 'Haz de su día especial un momento inolvidable',
     icon: Crown,
     color: 'from-pink-100 to-rose-100',
-    image: '/eventos/15-anos.jpg',
+    image: '/eventos/15-anos.webp',
     description: 'Arreglos florales elegantes para quinceañeras. Desde centros de mesa hasta el ramo perfecto para la entrada.',
   },
   'bodas': {
@@ -29,7 +29,7 @@ const eventInfo = {
     subtitle: 'Celebra con color y alegría',
     icon: Gift,
     color: 'from-yellow-100 to-orange-100',
-    image: '/eventos/Cumpleaños.jpg',
+    image: '/eventos/cumpleaños.jpg',
     description: 'Sorprende con arreglos vibrantes, cajas sorpresa y combos especiales para cumpleañeros.',
   },
   'graduacion': {
@@ -53,7 +53,7 @@ const eventInfo = {
     subtitle: 'Agradece su amor con flores',
     icon: Baby,
     color: 'from-purple-100 to-pink-100',
-    image: '/eventos/Dia-de-la-Madre.jpg',
+    image: '/eventos/Dia-de-la-madre.png',
     description: 'Arreglos especiales para mamá. Rosas rosadas, orquídeas y detalles que dicen gracias.',
   },
   'condolencias': {
